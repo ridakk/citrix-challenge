@@ -6,7 +6,9 @@ var env = require('yargs').argv.mode;
 var plugins = [], outputFile;
 
 if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
+  plugins.push(new UglifyJsPlugin({ minimize: true ,exclude: [
+    /node_modules/
+  ]}));
   outputFile = 'citrix.min.js';
 } else {
   outputFile = 'citrix.js';
@@ -27,7 +29,7 @@ var config = {
       {
         test: /(\.jsx|\.js)$/,
         loader: 'babel',
-        exclude: /(node_modules|bower_components)/
+        exclude: /node_modules/
       },
       {
         test: /(\.jsx|\.js)$/,
