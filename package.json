@@ -4,7 +4,9 @@
   "description": "Citrix Mock Api Usage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "api-build": "webpack --config webpack.config.api.js --mode=build",
+    "api-dev": "webpack --config webpack.config.api.js --progress --colors --watch --mode=dev",
+    "api-test": "mocha --compilers js:babel-core/register --colors -w ./api/test/*.spec.js"
   },
   "repository": {
     "type": "git",
