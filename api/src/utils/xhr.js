@@ -17,11 +17,11 @@ let sendXhrRequest = function (params) {
     req.addEventListener('load', handleSuccess);
     req.addEventListener('error', handleFailure);
 
-    req.open(params.method, params.url);
+    req.open(params.method, params.url, params.async);
 
     req.setRequestHeader('Content-Type', 'application/json');
 
-    req.send(params.data);
+    req.send(JSON.stringify(params.data));
   });
 };
 

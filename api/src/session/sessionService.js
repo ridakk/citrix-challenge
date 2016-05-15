@@ -14,11 +14,12 @@ class SessionService {
     password: null
   }) {
     return Xhr.post({
-      url: 'http://js-coding-challenge.us-east-1.elasticbeanstalk.com/' + JOIN_URL,
+      url: 'http://js-coding-challenge.us-east-1.elasticbeanstalk.com' + JOIN_URL,
       data: {
         login: params.login,
         password: params.password
-      }
+      },
+      async: false
     });
   }
 }
