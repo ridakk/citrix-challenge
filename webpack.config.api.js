@@ -2,13 +2,12 @@ var webpack = require('webpack');
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var path = require('path');
 var env = require('yargs').argv.mode;
+var buildPath = path.resolve(__dirname + '/api/dist');
 
 var plugins = [], outputFile;
 
 if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true ,exclude: [
-    /node_modules/
-  ]}));
+  plugins.push(new UglifyJsPlugin({ minimize: true }));
   outputFile = 'citrix.min.js';
 } else {
   outputFile = 'citrix.js';
@@ -18,7 +17,7 @@ var config = {
   entry: ['babel-polyfill', __dirname + '/api/src/citrix.js'],
   devtool: 'source-map',
   output: {
-    path: __dirname + '/api/dist',
+    path: buildPath + '/' + env,
     filename: outputFile,
     library: "CITRIX",
     libraryTarget: 'umd',

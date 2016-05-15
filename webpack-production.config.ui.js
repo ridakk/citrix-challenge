@@ -15,8 +15,8 @@ const config = {
   devtool: 'source-map',
   //output config
   output: {
-    path: buildPath,    //Path of output file
-    filename: 'app.js',  //Name of output file
+    path: buildPath, //Path of output file
+    filename: 'app.js', //Name of output file
   },
   plugins: [
     //Minify the bundle
@@ -29,18 +29,21 @@ const config = {
     //Allows error warnings but does not stop compiling. Will remove when eslint is added
     new webpack.NoErrorsPlugin(),
     //Transfer Files
-    new TransferWebpackPlugin([
-      {from: 'www'},
-    ], path.resolve(__dirname,"ui/src")),
+    new TransferWebpackPlugin([{
+      from: 'ui/src/www/css'
+    }, {
+      from: 'ui/src/www/build'
+    },{
+      from: 'api/dist/build',
+      to: "."
+    }])
   ],
   module: {
-    loaders: [
-      {
-        test: /\.js$/, // All .js files
-        loaders: ['babel-loader'], //react-hot is like browser sync and babel loads jsx and es6-7
-        exclude: [nodeModulesPath],
-      },
-    ],
+    loaders: [{
+      test: /\.js$/, // All .js files
+      loaders: ['babel-loader'], //react-hot is like browser sync and babel loads jsx and es6-7
+      exclude: [nodeModulesPath],
+    }],
   },
   //Eslint config
   eslint: {
