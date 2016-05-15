@@ -4,24 +4,34 @@ let sendXhrRequest = function (params) {
   return new Promise((resolve, reject) => {
     let req = new XMLHttpRequest();
 
-    function handleSuccess(evt) {
+    function handleSuccess() {
       console.log('xhr success');
-      resolve(evt);
+      resolve(JSON.parse(req.response));
     }
 
-    function handleFailure(evt) {
+    function handleFailure() {
       console.log('xhr failure');
-      reject(evt);
+      reject(JSON.parse(req.response));
     }
 
-    req.addEventListener('load', handleSuccess);
-    req.addEventListener('error', handleFailure);
+    if (params.async) {
+      req.addEventListener('load', handleSuccess);
+      req.addEventListener('error', handleFailure);
+    }
 
     req.open(params.method, params.url, params.async);
 
     req.setRequestHeader('Content-Type', 'application/json');
 
     req.send(JSON.stringify(params.data));
+
+    if (!params.async) {
+      if (req.status >= 400) {
+        handleFailure();
+      } else {
+        handleSuccess();
+      }
+    }
   });
 };
 
