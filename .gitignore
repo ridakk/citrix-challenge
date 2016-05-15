@@ -34,3 +34,6 @@ node_modules
 
 # api dist folder
 api/dist
+
+# ui dist folder
+ui/dist
