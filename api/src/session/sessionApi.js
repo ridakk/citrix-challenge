@@ -1,9 +1,9 @@
-import SessionManager from './sessionManager';
+import Session from './session';
 
 export default class SessionApi {
 
-  static join(params) {
-    return SessionManager.join(params);
+  static join(sessionData) {
+    return new Session(sessionData).join();
   }
 
 }
