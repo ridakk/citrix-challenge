@@ -3,7 +3,7 @@ import Attendee from './Attendee';
 
 let Session = (_credentials) => {
   let credentials = _credentials, ws, payload,
-    attendees = [];
+    attendees = [], msgs = {}, msgTimeout;
 
   function join() {
     return new Promise((resolve, reject) => {
@@ -30,6 +30,22 @@ let Session = (_credentials) => {
           if (!attendee) {
             attendees.push(new Attendee(msg.payload.user.id, payload.token));
           }
+
+          if (msg.name === 'muteState') {
+            console.log(`user ${msg.payload.user.id} mute state: ${msg.payload.muted}`);
+          }
+
+          if (!msgs[msg.payload.user.id]) {
+            msgs[msg.payload.user.id] = 0;
+          }
+          msgs[msg.payload.user.id]++;
+
+          if (!msgTimeout) {
+            msgTimeout = setTimeout(() => {
+              console.log('counts: ', JSON.stringify(msgs));
+              msgTimeout = null;
+            }, 1000);
+          }
         };
 
         ws.onclose = () => {
@@ -52,6 +68,9 @@ let Session = (_credentials) => {
     },
     getAttendees: () => {
       return attendees;
+    },
+    getMsgs: () => {
+      return JSON.stringify(msgs);
     }
   };
 };

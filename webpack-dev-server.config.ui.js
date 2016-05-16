@@ -51,13 +51,6 @@ const config = {
       test: /\.js$/, //All .js files
       loaders: ['react-hot', 'babel-loader'], //react-hot is like browser sync and babel loads jsx and es6-7
       exclude: [nodeModulesPath],
-    }, {
-      test: /index\.html$/,
-      loader: 'string-replace',
-      query: {
-        search: '<api-build-mode>',
-        replace: ''
-      }
     }],
   },
   //eslint config options. Part of the eslint-loader package

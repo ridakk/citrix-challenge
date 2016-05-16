@@ -1,20 +1,17 @@
 import Xhr from '../utils/xhr';
+import * as SESSION_URLS from './sessionUrls';
 
-import {
-  JOIN_URL
-} from './sessionUrls';
-
-class SessionService {
+export default class SessionService {
   constructor() {
 
   }
 
-  join(params = {
+  static join(params = {
     login: null,
     password: null
   }) {
     return Xhr.post({
-      url: 'http://js-coding-challenge.us-east-1.elasticbeanstalk.com' + JOIN_URL,
+      url: SESSION_URLS.BASE + SESSION_URLS.JOIN,
       data: {
         login: params.login,
         password: params.password
@@ -22,6 +19,31 @@ class SessionService {
       async: false
     });
   }
-}
 
-export default new SessionService();
+  static mute(params = {
+    token: null,
+    id: null
+  }) {
+    return Xhr.put({
+      url: SESSION_URLS.BASE + SESSION_URLS.MUTE_ATTENDEE + params.id,
+      data: {
+        token: params.token
+      },
+      async: true
+    });
+  }
+
+  static unmute(params = {
+    token: null,
+    id: null
+  }) {
+    return Xhr.put({
+      url: SESSION_URLS.BASE + SESSION_URLS.UNMUTE_ATTENDEE + params.id,
+      data: {
+        token: params.token
+      },
+      async: true
+    });
+  }
+
+}
