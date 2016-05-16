@@ -1,6 +1,6 @@
 import * as REQUEST from '../constants/httpRequests';
 
-let sendXhrRequest = function (params) {
+let sendXhrRequest = function (method, params) {
   return new Promise((resolve, reject) => {
     let req = new XMLHttpRequest();
 
@@ -19,7 +19,7 @@ let sendXhrRequest = function (params) {
       req.addEventListener('error', handleFailure);
     }
 
-    req.open(params.method, params.url, params.async);
+    req.open(method, params.url, params.async);
 
     req.setRequestHeader('Content-Type', 'application/json');
 
@@ -41,22 +41,18 @@ export default class Xhr {
   }
 
   static post(params) {
-    params.method = REQUEST.HTTP_POST;
-    return sendXhrRequest(params);
+    return sendXhrRequest(REQUEST.HTTP_POST, params);
   }
 
   static put(params) {
-    params.method = REQUEST.HTTP_PUT;
-    return sendXhrRequest(params);
+    return sendXhrRequest(REQUEST.HTTP_PUT, params);
   }
 
   static get(params) {
-    params.method = REQUEST.HTTP_GET;
-    return sendXhrRequest(params);
+    return sendXhrRequest(REQUEST.HTTP_GET, params);
   }
 
   static delete(params) {
-    params.method = REQUEST.HTTP_DELETE;
-    return sendXhrRequest(params);
+    return sendXhrRequest(REQUEST.HTTP_DELETE, params);
   }
 }
