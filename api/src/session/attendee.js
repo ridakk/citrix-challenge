@@ -1,38 +1,80 @@
 import SessionService from './sessionService';
 
-let Attendee = (attendeeid, sessionToken) => {
-  let muted;
+let Attendee = (scoreHolder, hostid, attendeeid, sessionToken) => {
+  let muted = false,
+    mutable;
 
   return {
     getId: () => {
       return attendeeid;
     },
-    mute: () => {
-      if (muted) {
-        return new Promise((resolve) => {
-          resolve();
-        });
-      }
-
-      return SessionService.mute({
-        token: sessionToken,
-        id: attendeeid
-      }).then(() => {
-        muted = true;
-      });
+    isMuted: () => {
+      return muted;
     },
-    unmute: () => {
-      if (!muted) {
-        return new Promise((resolve) => {
-          resolve();
-        });
-      }
+    setActive: (active) => {
+      mutable = active;
+    },
+    isActive: () => {
+      return mutable;
+    },
+    mute: () => {
+      return new Promise((resolve, reject) => {
+        if (muted) {
+          if (hostid === attendeeid) {
+            SessionService.unmute({
+              token: sessionToken,
+              id: attendeeid
+            }).then(() => {
+              muted = false;
+              resolve(0);
+            }, () => {
+              resolve(0);
+            });
+          } else {
+            SessionService.unmute({
+              token: sessionToken,
+              id: attendeeid
+            }).then(() => {
+              muted = false;
+              scoreHolder.addPoints(-5);
+              resolve(-5);
+            }, () => {
+              scoreHolder.addPoints(-1);
+              resolve(-1);
+            });
+          }
+        } else {
+          if (!mutable) {
+            resolve(0);
+            return;
+          }
 
-      return SessionService.unmute({
-        token: sessionToken,
-        id: attendeeid
-      }).then(() => {
-        muted = false;
+          if (hostid === attendeeid) {
+            SessionService.mute({
+              token: sessionToken,
+              id: attendeeid
+            }).then(() => {
+              console.log('host is muted!!!');
+              muted = true;
+              resolve(-50);
+            }, () => {
+              resolve(0);
+            });
+          } else {
+            SessionService.mute({
+              token: sessionToken,
+              id: attendeeid
+            }).then(() => {
+              console.log(attendeeid + ' muted');
+              muted = true;
+              scoreHolder.addPoints(+2);
+              resolve(+2);
+            }, () => {
+              scoreHolder.addPoints(+1);
+              resolve(+1);
+            });
+          }
+        }
       });
     }
   };

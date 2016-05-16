@@ -1,9 +1,12 @@
 import SessionService from './sessionService';
 import Attendee from './Attendee';
+import Score from './Score';
 
-let Session = (_credentials) => {
-  let credentials = _credentials, ws, payload,
-    attendees = [], msgs = {}, msgTimeout;
+let Session = (_credentials, t1 = 700, t2 = 1000) => {
+  let credentials = _credentials,
+    ws, payload, attendees = [],
+    onEndCallback, onAttendeeStateCallback,
+    startTime, endTime, score, eventFireTimeout;
 
   function join() {
     return new Promise((resolve, reject) => {
@@ -19,33 +22,65 @@ let Session = (_credentials) => {
         }
 
         ws.onopen = () => {
+          startTime = new Date();
+          score = new Score();
           resolve(this);
         };
 
         ws.onmessage = (event) => {
-          let msg = JSON.parse(event.data), attendee;
+          let msg = JSON.parse(event.data),
+            attendee;
+
+          if (endTime) {
+            return;
+          }
 
           attendee = attendees.find(attendee => attendee.getId() === msg.payload.user.id);
 
           if (!attendee) {
-            attendees.push(new Attendee(msg.payload.user.id, payload.token));
+            attendee = new Attendee(score, payload.user.id, msg.payload.user.id, payload.token);
+            attendees.push(attendee);
           }
 
-          if (msg.name === 'muteState') {
-            console.log(`user ${msg.payload.user.id} mute state: ${msg.payload.muted}`);
+          if (attendee.isActive()) {
+            return;
           }
 
-          if (!msgs[msg.payload.user.id]) {
-            msgs[msg.payload.user.id] = 0;
+          if (attendee.isMuted()) {
+            attendee = attendees.find(attendee => attendee.isMuted() === false);
+            if (!attendee) {
+              endTime = new Date();
+              ws.close();
+              setTimeout(() => {
+                onEndCallback('EXCELLENT', startTime, endTime, score.points);
+              }, 0);
+            }
+            return;
           }
-          msgs[msg.payload.user.id]++;
 
-          if (!msgTimeout) {
-            msgTimeout = setTimeout(() => {
-              console.log('counts: ', JSON.stringify(msgs));
-              msgTimeout = null;
-            }, 1000);
+          if (msg.name === 'muteState' &&
+            attendee.getId() === payload.user.id) {
+            endTime = new Date();
+            ws.close();
+            setTimeout(() => {
+              onEndCallback('GAME OVER', startTime, endTime, score.points);
+            }, 0);
+            return;
           }
+
+          if (eventFireTimeout) {
+            return;
+          }
+
+          eventFireTimeout = setTimeout(() => {
+            eventFireTimeout = null;
+            attendee.setActive(true);
+            onAttendeeStateCallback(attendee, true);
+            setTimeout(() => {
+              attendee.setActive(false);
+              onAttendeeStateCallback(attendee, false);
+            }, t2);
+          }, t1);
         };
 
         ws.onclose = () => {
@@ -69,8 +104,11 @@ let Session = (_credentials) => {
     getAttendees: () => {
       return attendees;
     },
-    getMsgs: () => {
-      return JSON.stringify(msgs);
+    onEnd: (callback) => {
+      onEndCallback = callback;
+    },
+    onAttendeeState: (callback) => {
+      onAttendeeStateCallback = callback;
     }
   };
 };
