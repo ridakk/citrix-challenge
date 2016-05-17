@@ -8,6 +8,21 @@ const styles = {
   },
 };
 
+const levels = {
+  1: {
+    t1: 500,
+    t2: 1000
+  },
+  2: {
+    t1: 300,
+    t2: 700
+  },
+  3: {
+    t1: 150,
+    t2: 350
+  }
+}
+
 class Level extends React.Component {
   constructor(props) {
     super(props)
@@ -17,6 +32,7 @@ class Level extends React.Component {
 
   handleChange(event, index, value) {
     this.setState({value});
+    this.props.onLevelChange(levels[value]);
   }
 
   render() {
