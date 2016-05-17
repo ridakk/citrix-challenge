@@ -2,14 +2,16 @@
   "name": "citrix-challenge",
   "version": "1.0.0",
   "description": "Citrix Mock Api Usage",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "api-build": "webpack --config webpack.config.api.js --mode=build",
     "api-dev": "webpack --config webpack.config.api.js --progress --colors --watch --mode=dev",
     "api-test": "mocha --compilers js:babel-core/register --colors -w ./api/test/*.spec.js",
     "ui-dev": "webpack-dev-server --config webpack-dev-server.config.ui.js --progress --inline --colors",
     "ui-build": "webpack --config webpack-production.config.ui.js --progress --colors",
-    "build": "webpack --config webpack.config.api.js --mode=build && webpack --config webpack-production.config.ui.js --progress --colors && node server"
+    "build": "webpack --config webpack.config.api.js --mode=build && webpack --config webpack-production.config.ui.js --progress --colors && node server",
+    "postinstall": "webpack --config webpack.config.api.js --mode=build && webpack --config webpack-production.config.ui.js --progress --colors",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
