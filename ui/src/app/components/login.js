@@ -57,13 +57,15 @@ class Login extends React.Component {
   }
 
   handleStartButtonClick() {
-      CITRIX.session.join({
+      /*CITRIX.session.join({
           login: this.state.username,
           password: this.state.password
       }, this.state.level.t1, this.state.level.t2).then((session) => {
           SessionService.session = session;
-          this.props.router.push('/game')
-      });
+          this.props.router.push('/game');
+      });*/
+
+      this.props.router.push('/game');
   }
 
   render() {
