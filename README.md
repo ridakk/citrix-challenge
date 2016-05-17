@@ -69,7 +69,7 @@ npm run ui-build
 * used a singleton service to share session object between pages in ui
   but Redux can solve that more properly
 * need to figure out a way to run two webpack watch tasks on two different folder simultaneously
-* JSDOC generation for api
+* JSDOC generation for api, webpack seems not to care much about jsdocs, need gulp or grunt
 
 ## TODOS - Citrix Mock api
 
