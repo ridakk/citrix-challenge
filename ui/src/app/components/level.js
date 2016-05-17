@@ -1,27 +1,13 @@
 import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import { DIFFICULTY_LEVELS } from './difficultyLevels';
 
 const styles = {
   customWidth: {
     width: 150,
   },
 };
-
-const levels = {
-  1: {
-    t1: 500,
-    t2: 1000
-  },
-  2: {
-    t1: 300,
-    t2: 700
-  },
-  3: {
-    t1: 150,
-    t2: 350
-  }
-}
 
 class Level extends React.Component {
   constructor(props) {
@@ -32,16 +18,17 @@ class Level extends React.Component {
 
   handleChange(event, index, value) {
     this.setState({value});
-    this.props.onLevelChange(levels[value]);
+    this.props.onLevelChange(DIFFICULTY_LEVELS[value]);
   }
 
   render() {
     return (
       <div>
       <SelectField value={this.state.value} onChange={this.handleChange}>
-        <MenuItem value={1} primaryText="First time moderator" />
-        <MenuItem value={2} primaryText="Exprienced moderator" />
-        <MenuItem value={3} primaryText="Not human!" />
+        <MenuItem value={1} primaryText="This is my first time" />
+        <MenuItem value={2} primaryText="I am expreienced" />
+        <MenuItem value={3} primaryText="Mute Mute Mute" />
+        <MenuItem value={4} primaryText="Insane !!!" />
       </SelectField>
       </div>
     )

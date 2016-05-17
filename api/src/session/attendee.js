@@ -2,7 +2,7 @@ import SessionService from './sessionService';
 
 let Attendee = (scoreHolder, hostid, attendeeid, sessionToken) => {
   let muted = false,
-    mutable;
+    state = '';
 
   return {
     getId: () => {
@@ -11,56 +11,66 @@ let Attendee = (scoreHolder, hostid, attendeeid, sessionToken) => {
     isMuted: () => {
       return muted;
     },
-    setActive: (active) => {
-      mutable = active;
+    setState: (newState) => {
+      state = newState;
     },
-    isActive: () => {
-      return mutable;
+    getState: () => {
+      return state;
     },
     mute: () => {
       return new Promise((resolve, reject) => {
         if (muted) {
           if (hostid === attendeeid) {
+            state = 'inprogress';
             SessionService.unmute({
               token: sessionToken,
               id: attendeeid
             }).then(() => {
               muted = false;
-              resolve(0);
+              state = '';
+              resolve(muted);
             }, () => {
-              resolve(0);
+              state = '';
+              resolve(muted);
             });
           } else {
+            state = 'inprogress';
             SessionService.unmute({
               token: sessionToken,
               id: attendeeid
             }).then(() => {
               muted = false;
               scoreHolder.addPoints(-5);
-              resolve(-5);
+              state = '';
+              resolve(muted);
             }, () => {
               scoreHolder.addPoints(-1);
-              resolve(-1);
+              state = '';
+              resolve(muted);
             });
           }
         } else {
-          if (!mutable) {
-            resolve(0);
+          if (state !== 'active') {
+            reject();
             return;
           }
 
           if (hostid === attendeeid) {
+            state = 'inprogress';
             SessionService.mute({
               token: sessionToken,
               id: attendeeid
             }).then(() => {
               console.log('host is muted!!!');
               muted = true;
-              resolve(-50);
+              scoreHolder.addPoints(-50);
+              resolve(muted);
             }, () => {
-              resolve(0);
+              state = '';
+              resolve(muted);
             });
           } else {
+            state = 'inprogress';
             SessionService.mute({
               token: sessionToken,
               id: attendeeid
@@ -68,10 +78,11 @@ let Attendee = (scoreHolder, hostid, attendeeid, sessionToken) => {
               console.log(attendeeid + ' muted');
               muted = true;
               scoreHolder.addPoints(+2);
-              resolve(+2);
+              resolve(muted);
             }, () => {
               scoreHolder.addPoints(+1);
-              resolve(+1);
+              state = '';
+              resolve(muted);
             });
           }
         }

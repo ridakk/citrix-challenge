@@ -8,6 +8,22 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
     onEndCallback, onAttendeeStateCallback,
     startTime, endTime, score, eventFireTimeout;
 
+  function fireCallback(callback, ...args) {
+    if (typeof callback === 'function') {
+      setTimeout(() => {
+        callback(...args);
+      }, 0);
+    }
+  }
+
+  function processEnd(txt) {
+    endTime = new Date();
+    ws.close();
+    onAttendeeStateCallback = null;
+    fireCallback(onEndCallback, txt, startTime, endTime, score.points);
+    onEndCallback = null;
+  }
+
   function join() {
     return new Promise((resolve, reject) => {
       SessionService.join(credentials).then((data) => {
@@ -42,29 +58,22 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
             attendees.push(attendee);
           }
 
-          if (attendee.isActive()) {
+          if (msg.name === 'muteState' &&
+            attendee.getId() === payload.user.id) {
+            processEnd('GAME OVER');
+            return;
+          }
+
+          if (attendee.getState() === 'inprogress' ||
+            attendee.getState() === 'active') {
             return;
           }
 
           if (attendee.isMuted()) {
             attendee = attendees.find(attendee => attendee.isMuted() === false);
             if (!attendee) {
-              endTime = new Date();
-              ws.close();
-              setTimeout(() => {
-                onEndCallback('EXCELLENT', startTime, endTime, score.points);
-              }, 0);
+              processEnd('EXCELLENT');
             }
-            return;
-          }
-
-          if (msg.name === 'muteState' &&
-            attendee.getId() === payload.user.id) {
-            endTime = new Date();
-            ws.close();
-            setTimeout(() => {
-              onEndCallback('GAME OVER', startTime, endTime, score.points);
-            }, 0);
             return;
           }
 
@@ -73,13 +82,17 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
           }
 
           eventFireTimeout = setTimeout(() => {
-            eventFireTimeout = null;
-            attendee.setActive(true);
-            onAttendeeStateCallback(attendee, true);
-            setTimeout(() => {
-              attendee.setActive(false);
-              onAttendeeStateCallback(attendee, false);
-            }, t2);
+            if (attendee.getState() === '') {
+              eventFireTimeout = null;
+              attendee.setState('active');
+              fireCallback(onAttendeeStateCallback, attendee, true);
+              setTimeout(() => {
+                if (attendee.getState() === 'active') {
+                  attendee.setState('');
+                  fireCallback(onAttendeeStateCallback, attendee, false);
+                }
+              }, t2);
+            }
           }, t1);
         };
 
@@ -99,7 +112,7 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
   return {
     join: join,
     end: () => {
-      ws.close();
+      processEnd('FAILED');
     },
     getAttendees: () => {
       return attendees;
