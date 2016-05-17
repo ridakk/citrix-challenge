@@ -9,7 +9,7 @@
     "api-test": "mocha --compilers js:babel-core/register --colors -w ./api/test/*.spec.js",
     "ui-dev": "webpack-dev-server --config webpack-dev-server.config.ui.js --progress --inline --colors",
     "ui-build": "webpack --config webpack-production.config.ui.js --progress --colors",
-    "build": "webpack --config webpack.config.api.js --mode=build && webpack --config webpack-production.config.ui.js --progress --colors"
+    "build": "webpack --config webpack.config.api.js --mode=build && webpack --config webpack-production.config.ui.js --progress --colors && node server"
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,7 @@
     "yargs": "^4.7.0"
   },
   "dependencies": {
+    "express": "^4.13.4",
     "material-ui": "^0.15.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",

@@ -38,7 +38,7 @@ npm run api-dev
 Now you can run your local server:
 
 ```sh
-npm start
+npm run ui-dev
 ```
 
 Server is located at [http://localhost:3000](http://localhost:3000)
@@ -46,12 +46,22 @@ Server is located at [http://localhost:3000](http://localhost:3000)
 API and UI webpack configuration are seperate so if you change anything in api then you have kill ui-dev task and re-run it.
 
 ## Production
-
 ```sh
 npm run build
 ```
-
 You can find production files under /src/ui/dist
+
+Server is located at [http://localhost:5000](http://localhost:5000)
+
+### Building API Only
+```sh
+npm run api-build
+```
+
+### Building UI Only
+```sh
+npm run ui-build
+```
 
 ## TODOS - API & UI
 
