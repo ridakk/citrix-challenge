@@ -9,6 +9,7 @@ import StartButton from './startButton';
 import { withRouter } from 'react-router'
 import SessionService from '../services/sessionService'
 import { DIFFICULTY_LEVELS } from './difficultyLevels';
+import Notification from './notification';
 
 const styles = {
   container: {
@@ -34,7 +35,9 @@ class Login extends React.Component {
       username: '',
       password: '',
       buttonDisabled: true,
-      level: DIFFICULTY_LEVELS[1]
+      level: DIFFICULTY_LEVELS[1],
+      notificationOpen: false,
+      notificationMessage: ''
     };
   }
 
@@ -65,6 +68,12 @@ class Login extends React.Component {
       }, this.state.level.t1, this.state.level.t2).then((session) => {
           SessionService.session = session;
           this.props.router.push('/game');
+      }, () => {
+        console.log('session join failed...')
+        this.setState({
+          notificationOpen: true,
+          notificationMessage: 'We have prevented a major failure that may damge yor computer... Just kidding. Please Try Again'
+        })
       });
   }
 
@@ -86,6 +95,10 @@ class Login extends React.Component {
           <StartButton
             disabled={this.state.buttonDisabled}
             onClick={this.handleStartButtonClick}
+          />
+          <Notification
+            open={this.state.notificationOpen}
+            message={this.state.notificationMessage}
           />
         </div>
       </MuiThemeProvider>

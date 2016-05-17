@@ -32,15 +32,18 @@ class AttendeeList extends React.Component {
       attendee, self = this;
 
     attendee = SessionService.session.getAttendees().find(attendee => attendee.getId() === index);
-    attendee.mute().then((state) => {
-      arrayvar[index] = {
-        active: false,
-        muted: state
-      };
-      this.setState({
-        Attendees: arrayvar
-      });
-    }, () => {})
+
+    if(attendee) {
+      attendee.mute().then((state) => {
+        arrayvar[index] = {
+          active: false,
+          muted: state
+        };
+        this.setState({
+          Attendees: arrayvar
+        });
+      }, () => {})
+    }
   }
 
   render() {

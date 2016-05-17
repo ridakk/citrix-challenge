@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AttendeeList from './attendeeList';
 import StopButton from './stopButton';
 import SessionService from '../services/sessionService'
+import Modal from './modal';
 
 const styles = {
   container: {
@@ -25,10 +26,20 @@ class Game extends React.Component {
     this.hanleOnEnd = this.hanleOnEnd.bind(this);
     this.handleStopButtonClick = this.handleStopButtonClick.bind(this);
     SessionService.session.onEnd(this.hanleOnEnd);
+    this.state = {
+      modalTitle: '',
+      modalTxt: '',
+      modalOpen: false
+    }
   }
 
-  hanleOnEnd(txt, st, et, points){
-    console.log(`${txt} --- duration: ${(st-et)/1024}, points: ${points}`)
+  hanleOnEnd(txt, startTime, endTime, points){
+    console.log(`${txt} --- duration: ${(endTime-startTime)/1024}, points: ${points}`)
+    this.setState({
+      modalTitle: txt,
+      modalTxt: `Duration: ${(endTime-startTime)/1024}, Points: ${points}`,
+      modalOpen: true
+    })
   }
 
   handleStopButtonClick(){
@@ -42,6 +53,11 @@ class Game extends React.Component {
           <AttendeeList/>
           <StopButton
             onClick={this.handleStopButtonClick}
+          />
+          <Modal
+            title={this.state.modalTitle}
+            txt={this.state.modalTxt}
+            open={this.state.modalOpen}
           />
         </div>
       </MuiThemeProvider>

@@ -29,6 +29,11 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
       SessionService.join(credentials).then((data) => {
         payload = data.payload;
 
+        if (data.fail) {
+          reject();
+          return;
+        }
+
         try {
           ws = new WebSocket(payload.rtmUrl + '/?token=' + payload.token);
         } catch (err) {
@@ -60,7 +65,7 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
 
           if (msg.name === 'muteState' &&
             attendee.getId() === payload.user.id) {
-            processEnd('GAME OVER');
+            processEnd('GAME OVER ...');
             return;
           }
 
@@ -72,7 +77,7 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
           if (attendee.isMuted()) {
             attendee = attendees.find(attendee => attendee.isMuted() === false);
             if (!attendee) {
-              processEnd('EXCELLENT');
+              processEnd('EXCELLENT !!!');
             }
             return;
           }
@@ -103,8 +108,8 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
         ws.onerror = () => {
           console.log('ws error.');
         };
-      }, (err) => {
-        console.log(err);
+      }, () => {
+        reject();
       });
     });
   }
@@ -112,7 +117,7 @@ let Session = (_credentials, t1 = 700, t2 = 1000) => {
   return {
     join: join,
     end: () => {
-      processEnd('FAILED');
+      processEnd('RUNNING AWAY...');
     },
     getAttendees: () => {
       return attendees;
