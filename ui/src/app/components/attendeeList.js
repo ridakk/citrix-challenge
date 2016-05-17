@@ -17,7 +17,7 @@ class AttendeeList extends React.Component {
   render() {
     return (
       <div>
-        {this.state.Attendees.map((attendee) => (
+        {Object.keys(this.state.Attendees).map((attendee) => (
           <RaisedButton key={attendee.label} label={attendee.label} primary={!attendee.muted} secondary={!attendee.muted} style={style} />
         ))}
       </div>

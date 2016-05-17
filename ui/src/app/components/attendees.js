@@ -1,303 +1,103 @@
-let Attendees = [{
-    "label": 1,
-    "muted": false
-}, {
-    "label": 2,
-    "muted": false
-}, {
-    "label": 3,
-    "muted": false
-}, {
-    "label": 4,
-    "muted": false
-}, {
-    "label": 5,
-    "muted": false
-}, {
-    "label": 6,
-    "muted": false
-}, {
-    "label": 7,
-    "muted": false
-}, {
-    "label": 8,
-    "muted": false
-}, {
-    "label": 9,
-    "muted": false
-}, {
-    "label": 10,
-    "muted": false
-}, {
-    "label": 11,
-    "muted": false
-}, {
-    "label": 12,
-    "muted": false
-}, {
-    "label": 13,
-    "muted": false
-}, {
-    "label": 14,
-    "muted": false
-}, {
-    "label": 15,
-    "muted": false
-}, {
-    "label": 16,
-    "muted": false
-}, {
-    "label": 17,
-    "muted": false
-}, {
-    "label": 18,
-    "muted": false
-}, {
-    "label": 19,
-    "muted": false
-}, {
-    "label": 20,
-    "muted": false
-}, {
-    "label": 21,
-    "muted": false
-}, {
-    "label": 22,
-    "muted": false
-}, {
-    "label": 23,
-    "muted": false
-}, {
-    "label": 24,
-    "muted": false
-}, {
-    "label": 25,
-    "muted": false
-}, {
-    "label": 26,
-    "muted": false
-}, {
-    "label": 27,
-    "muted": false
-}, {
-    "label": 28,
-    "muted": false
-}, {
-    "label": 29,
-    "muted": false
-}, {
-    "label": 30,
-    "muted": false
-}, {
-    "label": 31,
-    "muted": false
-}, {
-    "label": 32,
-    "muted": false
-}, {
-    "label": 33,
-    "muted": false
-}, {
-    "label": 34,
-    "muted": false
-}, {
-    "label": 35,
-    "muted": false
-}, {
-    "label": 36,
-    "muted": false
-}, {
-    "label": 37,
-    "muted": false
-}, {
-    "label": 38,
-    "muted": false
-}, {
-    "label": 39,
-    "muted": false
-}, {
-    "label": 40,
-    "muted": false
-}, {
-    "label": 41,
-    "muted": false
-}, {
-    "label": 42,
-    "muted": false
-}, {
-    "label": 43,
-    "muted": false
-}, {
-    "label": 44,
-    "muted": false
-}, {
-    "label": 45,
-    "muted": false
-}, {
-    "label": 46,
-    "muted": false
-}, {
-    "label": 47,
-    "muted": false
-}, {
-    "label": 48,
-    "muted": false
-}, {
-    "label": 49,
-    "muted": false
-}, {
-    "label": 50,
-    "muted": false
-}, {
-    "label": 51,
-    "muted": false
-}, {
-    "label": 52,
-    "muted": false
-}, {
-    "label": 53,
-    "muted": false
-}, {
-    "label": 54,
-    "muted": false
-}, {
-    "label": 55,
-    "muted": false
-}, {
-    "label": 56,
-    "muted": false
-}, {
-    "label": 57,
-    "muted": false
-}, {
-    "label": 58,
-    "muted": false
-}, {
-    "label": 59,
-    "muted": false
-}, {
-    "label": 60,
-    "muted": false
-}, {
-    "label": 61,
-    "muted": false
-}, {
-    "label": 62,
-    "muted": false
-}, {
-    "label": 63,
-    "muted": false
-}, {
-    "label": 64,
-    "muted": false
-}, {
-    "label": 65,
-    "muted": false
-}, {
-    "label": 66,
-    "muted": false
-}, {
-    "label": 67,
-    "muted": false
-}, {
-    "label": 68,
-    "muted": false
-}, {
-    "label": 69,
-    "muted": false
-}, {
-    "label": 70,
-    "muted": false
-}, {
-    "label": 71,
-    "muted": false
-}, {
-    "label": 72,
-    "muted": false
-}, {
-    "label": 73,
-    "muted": false
-}, {
-    "label": 74,
-    "muted": false
-}, {
-    "label": 75,
-    "muted": false
-}, {
-    "label": 76,
-    "muted": false
-}, {
-    "label": 77,
-    "muted": false
-}, {
-    "label": 78,
-    "muted": false
-}, {
-    "label": 79,
-    "muted": false
-}, {
-    "label": 80,
-    "muted": false
-}, {
-    "label": 81,
-    "muted": false
-}, {
-    "label": 82,
-    "muted": false
-}, {
-    "label": 83,
-    "muted": false
-}, {
-    "label": 84,
-    "muted": false
-}, {
-    "label": 85,
-    "muted": false
-}, {
-    "label": 86,
-    "muted": false
-}, {
-    "label": 87,
-    "muted": false
-}, {
-    "label": 88,
-    "muted": false
-}, {
-    "label": 89,
-    "muted": false
-}, {
-    "label": 90,
-    "muted": false
-}, {
-    "label": 91,
-    "muted": false
-}, {
-    "label": 92,
-    "muted": false
-}, {
-    "label": 93,
-    "muted": false
-}, {
-    "label": 94,
-    "muted": false
-}, {
-    "label": 95,
-    "muted": false
-}, {
-    "label": 96,
-    "muted": false
-}, {
-    "label": 97,
-    "muted": false
-}, {
-    "label": 98,
-    "muted": false
-}, {
-    "label": 99,
-    "muted": false
-}, {
-    "label": 100,
-    "muted": false
-}];
+let Attendees = new Map()
+Attendees.set("1", false)
+Attendees.set("2", false)
+Attendees.set("3", false)
+Attendees.set("4", false)
+Attendees.set("5", false)
+Attendees.set("6", false)
+Attendees.set("7", false)
+Attendees.set("8", false)
+Attendees.set("9", false)
+Attendees.set("10", false)
+Attendees.set("11", false)
+Attendees.set("12", false)
+Attendees.set("13", false)
+Attendees.set("14", false)
+Attendees.set("15", false)
+Attendees.set("16", false)
+Attendees.set("17", false)
+Attendees.set("18", false)
+Attendees.set("19", false)
+Attendees.set("20", false)
+Attendees.set("21", false)
+Attendees.set("22", false)
+Attendees.set("23", false)
+Attendees.set("24", false)
+Attendees.set("25", false)
+Attendees.set("26", false)
+Attendees.set("27", false)
+Attendees.set("28", false)
+Attendees.set("29", false)
+Attendees.set("30", false)
+Attendees.set("31", false)
+Attendees.set("32", false)
+Attendees.set("33", false)
+Attendees.set("34", false)
+Attendees.set("35", false)
+Attendees.set("36", false)
+Attendees.set("37", false)
+Attendees.set("38", false)
+Attendees.set("39", false)
+Attendees.set("40", false)
+Attendees.set("41", false)
+Attendees.set("42", false)
+Attendees.set("43", false)
+Attendees.set("44", false)
+Attendees.set("45", false)
+Attendees.set("46", false)
+Attendees.set("47", false)
+Attendees.set("48", false)
+Attendees.set("49", false)
+Attendees.set("50", false)
+Attendees.set("51", false)
+Attendees.set("52", false)
+Attendees.set("53", false)
+Attendees.set("54", false)
+Attendees.set("55", false)
+Attendees.set("56", false)
+Attendees.set("57", false)
+Attendees.set("58", false)
+Attendees.set("59", false)
+Attendees.set("60", false)
+Attendees.set("61", false)
+Attendees.set("62", false)
+Attendees.set("63", false)
+Attendees.set("64", false)
+Attendees.set("65", false)
+Attendees.set("66", false)
+Attendees.set("67", false)
+Attendees.set("68", false)
+Attendees.set("69", false)
+Attendees.set("70", false)
+Attendees.set("71", false)
+Attendees.set("72", false)
+Attendees.set("73", false)
+Attendees.set("74", false)
+Attendees.set("75", false)
+Attendees.set("76", false)
+Attendees.set("77", false)
+Attendees.set("78", false)
+Attendees.set("79", false)
+Attendees.set("80", false)
+Attendees.set("81", false)
+Attendees.set("82", false)
+Attendees.set("83", false)
+Attendees.set("84", false)
+Attendees.set("85", false)
+Attendees.set("86", false)
+Attendees.set("87", false)
+Attendees.set("88", false)
+Attendees.set("89", false)
+Attendees.set("90", false)
+Attendees.set("91", false)
+Attendees.set("92", false)
+Attendees.set("93", false)
+Attendees.set("94", false)
+Attendees.set("95", false)
+Attendees.set("96", false)
+Attendees.set("97", false)
+Attendees.set("98", false)
+Attendees.set("99", false)
+Attendees.set("100", false)
 
 export default Attendees;
