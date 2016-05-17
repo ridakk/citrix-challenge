@@ -51,3 +51,18 @@ npm run build
 ```
 
 You can find production files under /src/ui/dist
+
+## TODOS - API & UI
+
+* unit tests are missing for both api and ui
+* used a singleton service to share session object between pages in ui
+  but Redux can solve that more properly
+* need to figure out a way to run two webpack watch task on two different folder
+
+## TODOS - Citrix Mock api
+
+* Need to use secure protocols HTTPS & WSS
+* /api/session/join is synchronous
+* no correlation between session and attendee REST resources, /api/attendee resource should be sub-resource of /session
+* Reponses contain 'X-Powered-By:Express', this exposing tech stack of server [Check Expressjs Security](http://expressjs.com/en/advanced/best-practice-security.html)
+* For invalid JSON in request body, response contains stack trace
