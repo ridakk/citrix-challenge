@@ -7,14 +7,16 @@ var buildPath = path.resolve(__dirname + '/api/dist');
 var plugins = [], outputFile;
 
 if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
+  plugins.push(new UglifyJsPlugin({
+    warnings: false
+  }));
   outputFile = 'citrix.min.js';
 } else {
   outputFile = 'citrix.js';
 }
 
 var config = {
-  entry: ['babel-polyfill', __dirname + '/api/src/citrix.js'],
+  entry: [__dirname + '/api/src/citrix.js'],
   devtool: 'source-map',
   output: {
     path: buildPath + '/' + env,
