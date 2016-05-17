@@ -11,11 +11,17 @@ class Username extends React.Component {
   onChange(event) {
       let username = event.target.value.trim();
       if (username.length === 0) {
-        this.setState({ errorText: 'Enter at least one char' })
+          this.setState({
+              errorText: 'Enter at least one character'
+          })
+          this.props.onUsernameChange('');
       } else {
-        this.setState({ errorText: '' })
+          this.setState({
+              errorText: ''
+          })
+          this.props.onUsernameChange(username);
       }
-    }
+  }
 
   render() {
     return (

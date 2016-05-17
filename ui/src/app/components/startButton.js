@@ -10,6 +10,7 @@ class StartButton extends React.Component {
   constructor(props) {
     super(props)
     this.handleTouchTap = this.handleTouchTap.bind(this);
+    console.log('disabled: ' + this.props.disabled)
   }
 
   handleTouchTap() {
@@ -21,7 +22,8 @@ class StartButton extends React.Component {
     return (
       <div>
         <RaisedButton label='Start' primary={true} style={style}
-        onTouchTap={this.handleTouchTap}/>
+        onTouchTap={this.handleTouchTap}
+        disabled={this.props.disabled}/>
       </div>
     )
   }
