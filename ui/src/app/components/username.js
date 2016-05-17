@@ -1,8 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import emailValidator from 'email-validator';
 
-class Email extends React.Component {
+class Username extends React.Component {
   constructor(props) {
     super(props)
     this.state = { errorText: '', value: props.value }
@@ -10,11 +9,11 @@ class Email extends React.Component {
   }
 
   onChange(event) {
-      let email = event.target.value.trim();
-      if (email.length === 0 || emailValidator.validate(email)) {
-        this.setState({ errorText: '' })
+      let username = event.target.value.trim();
+      if (username.length === 0) {
+        this.setState({ errorText: 'Enter at least one char' })
       } else {
-        this.setState({ errorText: 'Invalid email' })
+        this.setState({ errorText: '' })
       }
     }
 
@@ -22,8 +21,8 @@ class Email extends React.Component {
     return (
       <div>
         <TextField
-          hintText="Please enter an email address"
-          floatingLabelText="Email"
+          hintText="Enter something..."
+          floatingLabelText="Username"
           type="username"
           errorText= {this.state.errorText}
           onChange={this.onChange}
@@ -33,4 +32,4 @@ class Email extends React.Component {
   }
 }
 
-export default Email;
+export default Username;
