@@ -1,19 +1,30 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import { withRouter } from 'react-router'
 
 const style = {
   margin: 12,
 };
 
-function handleTouchTap() {
-  console.log('clicked');
-};
+class StartButton extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleTouchTap = this.handleTouchTap.bind(this);
+  }
 
-const StartButton = () => (
-  <div>
-    <RaisedButton label="Start" primary={true} style={style}
-    onTouchTap={handleTouchTap}/>
-  </div>
-);
+  handleTouchTap() {
+    console.log('clicked');
+    this.props.router.push('/game')
+  }
 
-export default StartButton;
+  render() {
+    return (
+      <div>
+        <RaisedButton label='Start' primary={true} style={style}
+        onTouchTap={this.handleTouchTap}/>
+      </div>
+    )
+  }
+}
+
+export default withRouter(StartButton)

@@ -3,7 +3,7 @@ import {deepOrange500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Password from './password';
-import Username from './username';
+import Email from './email';
 import StartButton from './startButton';
 
 const styles = {
@@ -28,7 +28,7 @@ class Login extends React.Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={styles.container}>
-          <Username/>
+          <Email/>
           <Password/>
           <StartButton/>
         </div>
