@@ -30,8 +30,6 @@ const config = {
     new webpack.NoErrorsPlugin(),
     //Transfer Files
     new TransferWebpackPlugin([{
-      from: 'ui/src/www/css'
-    }, {
       from: 'ui/src/www/build'
     },{
       from: 'api/dist/build',
@@ -43,6 +41,9 @@ const config = {
       test: /\.js$/, // All .js files
       loaders: ['babel-loader'], //react-hot is like browser sync and babel loads jsx and es6-7
       exclude: [nodeModulesPath],
+    }, {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
     }],
   },
   //Eslint config

@@ -5,6 +5,8 @@ import { Router, Route, hashHistory } from 'react-router'
 import Login from './components/login';
 import Game from './components/game';
 
+require("./main.css")
+
 //Needed for onTouchTap
 //Can go away when react 1.0 release
 //Check this repo:

@@ -27,6 +27,7 @@ class Username extends React.Component {
     return (
       <div>
         <TextField
+          className="textFieldContainer"
           hintText="Enter something..."
           floatingLabelText="Username"
           type="username"

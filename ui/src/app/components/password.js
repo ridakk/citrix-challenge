@@ -27,6 +27,7 @@ class Password extends React.Component {
     return (
       <div>
         <TextField
+          className="textFieldContainer"
           hintText="Enter something..."
           floatingLabelText="Password"
           type="password"

@@ -4,6 +4,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Password from './password';
 import Username from './username';
+import Level from './level';
 import StartButton from './startButton';
 import { withRouter } from 'react-router'
 import SessionService from '../services/sessionService'
@@ -66,6 +67,7 @@ class Login extends React.Component {
         <div style={styles.container}>
           <Username onUsernameChange={this.handleUsernameChange}/>
           <Password onPasswordChange={this.handlePasswordChange}/>
+          <Level/>
           <StartButton
             disabled={this.state.buttonDisabled}
             onClick={this.handleStartButtonClick}
