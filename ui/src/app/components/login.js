@@ -5,6 +5,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Password from './password';
 import Username from './username';
 import StartButton from './startButton';
+import { withRouter } from 'react-router'
+import SessionService from '../services/sessionService'
 
 const styles = {
   container: {
@@ -24,6 +26,7 @@ class Login extends React.Component {
     super(props, context);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleStartButtonClick = this.handleStartButtonClick.bind(this);
     this.state = {
       username: '',
       password: '',
@@ -47,6 +50,16 @@ class Login extends React.Component {
       });
   }
 
+  handleStartButtonClick() {
+    CITRIX.session.join({
+      login: this.state.username,
+      password: this.state.password
+    }).then((session) => {
+      SessionService.session = session;
+      this.props.router.push('/game')
+    });
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -55,6 +68,7 @@ class Login extends React.Component {
           <Password onPasswordChange={this.handlePasswordChange}/>
           <StartButton
             disabled={this.state.buttonDisabled}
+            onClick={this.handleStartButtonClick}
           />
         </div>
       </MuiThemeProvider>
@@ -62,4 +76,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default withRouter(Login)
