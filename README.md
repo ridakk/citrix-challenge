@@ -17,6 +17,7 @@ If you mute your self.... GAME OVER
 - [x] Webpack
 - [x] React
 - [x] Material-ui
+- [x] ES6 & Babel
 
 ## Installation
 After cloning the repository, install dependencies:
@@ -57,12 +58,13 @@ You can find production files under /src/ui/dist
 * unit tests are missing for both api and ui
 * used a singleton service to share session object between pages in ui
   but Redux can solve that more properly
-* need to figure out a way to run two webpack watch task on two different folder
+* need to figure out a way to run two webpack watch tasks on two different folder simultaneously
+* JSDOC generation for api
 
 ## TODOS - Citrix Mock api
 
-* Need to use secure protocols HTTPS & WSS
-* /api/session/join is synchronous
+* Need to use secure protocols: HTTPS & WSS
+* /api/session/join is synchronous. Synchronous XMLHttpRequest on the main thread is deprecated
 * no correlation between session and attendee REST resources, /api/attendee resource should be sub-resource of /session
-* Reponses contain 'X-Powered-By:Express', this exposing tech stack of server [Check Expressjs Security](http://expressjs.com/en/advanced/best-practice-security.html)
+* Reponses contain 'X-Powered-By:Express', this is exposing tech stack of server [Check Expressjs Security](http://expressjs.com/en/advanced/best-practice-security.html)
 * For invalid JSON in request body, response contains stack trace
